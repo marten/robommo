@@ -1,0 +1,13 @@
+name: robommo
+version: 0.1.0
+
+authors:
+  - Marten Veldthuis <marten@veldthuis.com>
+
+targets:
+  robommo:
+    main: src/robommo.cr
+
+crystal: 0.24.2
+
+license: MIT

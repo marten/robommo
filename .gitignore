@@ -2,3 +2,6 @@
 /lib/
 /bin/
 /.shards/
+
+/bots/nothing
+*.dwarf

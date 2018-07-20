@@ -4,9 +4,16 @@ TODO: Write a description here
 
 ## Installation
 
-TODO: Write installation instructions here
+```
+brew install crystal
+```
 
 ## Usage
+
+```
+shards build
+./bin/robommo
+```
 
 TODO: Write usage instructions here
 

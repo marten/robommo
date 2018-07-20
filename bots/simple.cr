@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 #
-require 'json'
+require "json"
 
-input = JSON.parse(STDIN.read)
+input = JSON.parse(STDIN)
 
-if input["age"] % 2 == 0
+if input["age"].as_i % 2 == 0
   puts "move_north"
 else
   puts "ranged_west"

@@ -1,6 +1,14 @@
+require "ANSI"
+
 class TTYRenderer
-  def render(game_state : GameState)
-    world = game_state.world
+  include ANSI
+
+  def render(world : World)
+    ANSI.clear
+
+    puts "Age: #{world.age}"
+    puts
+
     entities = world.entities.values
 
     puts "+" * (world.width + 2)
@@ -9,7 +17,7 @@ class TTYRenderer
       print '+'
 
       (0..(world.width - 1)).each do |x|
-        entity = entities.find { |entity| entity.x == x && entity.y == y }
+        entity = entities.find { |entity| entity.coord.x == x && entity.coord.y == y }
 
         if entity
           print entity.to_s

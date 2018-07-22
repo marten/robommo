@@ -7,8 +7,22 @@ class Coord
   def initialize(@x : Int32, @y : Int32)
   end
 
+  def ==(other)
+    other.x == x && other.y == y
+  end
+
   def inside?(world)
     @x >= 0 && @x < world.width && @y >= 0 && @y < world.height
+  end
+
+  def neighbour(direction : Direction) : Coord
+    case direction
+    when Direction::North then north()
+    when Direction::East  then east()
+    when Direction::South then south()
+    when Direction::West  then west()
+    else raise("Unknown Direction")
+    end
   end
 
   def north

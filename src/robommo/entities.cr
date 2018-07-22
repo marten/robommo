@@ -23,6 +23,8 @@ class Player < Entity
   property script : Script
 
   property state
+  property(melee_weapon) { Sword.new }
+  property(ranged_weapon) { Bow.new }
 
   def initialize(@id, @coord, script, @state = {health: 100, ducked: false})
     if script.is_a?(Script)
@@ -35,6 +37,10 @@ class Player < Entity
   def next_action(game_state)
     action_class = @script.run(game_state)
     action_class.new(self)
+  end
+
+  def health
+    @state[:health]
   end
 
   def update(changes)

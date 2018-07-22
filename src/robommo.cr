@@ -14,7 +14,7 @@ renderer = TTYRenderer.new
 
 renderer.render(world)
 
-10.times do
+20.times do
   world = world.step
   renderer.render(world)
 end

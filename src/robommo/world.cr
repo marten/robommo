@@ -9,6 +9,28 @@ class World
   def initialize(@width, @height, @age = 0, @entities = {} of UUID => Entity)
   end
 
+  def entities
+    @entities.values
+  end
+
+  def at(coord)
+    entities.select do |entity|
+      entity.coord == coord
+    end
+  end
+
+  def hitscan(coord : Coord, direction : Direction)
+    coord = coord.neighbour(direction)
+    entities = at(coord)
+
+    while coord = coord.neighbour(direction)
+      break unless coord.inside?(self)
+      entities += at(coord)
+    end
+
+    entities
+  end
+
   def spawn(x, y, script)
     id = UUID.random
     coord = Coord.new(x, y)
@@ -50,18 +72,12 @@ class World
   def players
     players = [] of Player
 
-    @entities.each do |id, entity|
+    entities.each do |entity|
       if entity.is_a?(Player)
         players << entity
       end
     end
 
     players
-  end
-
-  def to_s
-    @entities.map do |id, entity|
-      entity.to_s
-    end.join("\n")
   end
 end

@@ -54,8 +54,13 @@ abstract class Action
   abstract class Move < Action
     # TODO: bounds checking, collision checking, etc
     def move_to(world, coord)
-      next_entity = entity.update({coord: coord})
-      world.update_entity(next_entity)
+      if coord.inside?(world)
+        next_entity = entity.update({coord: coord})
+        world.update_entity(next_entity)
+      else
+        next_entity = entity.update({health: entity.health - 1})
+        world.update_entity(next_entity)
+      end
     end
   end
 
@@ -141,7 +146,21 @@ abstract class Action
 
   class RangedWest < Ranged
     def act(world)
-      return world
+      hit_entities = world.hitscan(entity.coord, Direction::West)
+      print "Player #{entity.id} uses #{entity.ranged_weapon.class} "
+
+      if hit_entities.any?
+        hit_entity = hit_entities.first
+        damage = entity.ranged_weapon.damage
+        new_health = hit_entity.health - damage
+
+        puts "and hits #{hit_entity.id}, new health: #{new_health}"
+        hit_entity = hit_entity.update({health: new_health})
+        world.update_entity(hit_entity)
+      else
+        puts "but hits nothing"
+        world
+      end
     end
   end
 end

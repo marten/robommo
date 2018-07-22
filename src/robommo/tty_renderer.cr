@@ -4,12 +4,10 @@ class TTYRenderer
   include ANSI
 
   def render(world : World)
-    ANSI.clear
-
     puts "Age: #{world.age}"
     puts
 
-    entities = world.entities.values
+    entities = world.entities
 
     puts "+" * (world.width + 2)
 
@@ -31,6 +29,11 @@ class TTYRenderer
     end
 
     puts "+" * (world.width + 2)
+    puts
+    puts
+    puts
+    puts
+    puts
     puts
   end
 end
